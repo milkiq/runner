@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <title>three.js</title>
+    <style>
+    html,
+    body {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    body {
+        overflow: hidden;
+        /*background-color: #b2cff6;*/
+    }
+
+    #world {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        position: fixed;
+        z-index: 90;
+    }
+
+    #text {
+
+        width: 100%;
+        height: 100%;
+        display: none;
+        text-align: center;
+        line-height: 100%;
+        /*background-color: #ff0000;*/
+        font-size: 800%;
+        color: #ffffff;
+        position: fixed;
+        z-index: 100;
+    }
+
+    #text div {
+        width: 20%;
+        height: 10%;
+        font-size: 60%;
+        text-align: center;
+        line-height: 100%;
+        margin: 0 auto;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        cursor: pointer;
+        z-index: 90;
+    }
+
+    #tips {
+        width: 100%;
+        display: block;
+        text-align: center;
+        line-height: 100%;
+        font-size: 400%;
+        color: #ffffff;
+        position: fixed;
+        z-index: 100;
+    }
+
+    #s {
+        width: 100%;
+        float: right;
+        text-align: center;
+        line-height: 200%;
+        font-size: 400%;
+        /*color: #ff6f32;*/
+        position: fixed;
+        z-index: 90;
+    }
+
+    canvas {
+        /*width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 190;*/
+        /*float: left;*/
+    }
+
+    @media screen and (orientation: portrait) {
+        /*竖屏 css*/
+        html {
+            transform: rotate(90deg);
+        }
+    }
+
+    @media only screen and (min-width: 321px) and (max-width: 1024px) {
+        #text {
+            font-size: 300%;
+        }
+
+        #text div {
+            font-size: 60%;
+        }
+
+        #tips {
+            font-size: 200%;
+        }
+
+        #s {
+            font-size: 300%;
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="text">
+        <br>
+        <br>Game Over
+        <br>
+        <br>
+        <div onclick="window.location.reload();">重新开始</div>
+    </div>
+    <div id="tips">
+        <br>
+        <br>
+        <br>
+        <br>左右键控制小人躲避障碍
+        <br>按空格开始</div>
+    <div id="s">score:0</div>
+    <div id="world"></div>
+    <script type="text/javascript" src="js/three.js"></script>
+    <script type="text/javascript" src="js/physi.js"></script>
+    <script type="text/javascript" src="js/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/man.js"></script>
+    <script type="text/javascript" src="js/raycaster.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript">
+    /*
+     * 智能机浏览器版本信息:
+     *
+     */
+    var browser = {
+        versions: function() {
+            var u = navigator.userAgent,
+                app = navigator.appVersion;
+            return { //移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+            };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if(browser.versions.android||browser.versions.ios){
+        document.getElementById('tips').innerHTML = "<br><br><br><br>点击屏幕左右控制小人躲避障碍<br>点击屏幕开始";
+    }
+    </script>
+</body>
+
+</html>
